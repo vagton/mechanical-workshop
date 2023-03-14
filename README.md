@@ -31,6 +31,8 @@ O github oferece duas opção de download, cabe você escolher:
 2. **Git Bash:** `git clone git@github.com:marcellosilverio/oficina-mecanica.git [nome do arquivo]`
 3. **SSH:** `git@github.com:marcellosilverio/oficina-mecanica.git` 
 
+Git do customizado: https://github.com/vagton/mechanical-workshop.git
+
 ### 2º PASSO: Cria o seu banco de dados
 
 Neste tópico não podemos ajudar você, porque é algo particular e relativo para escolher o banco de dado, alguns preferem o MySQL, 
@@ -134,7 +136,7 @@ Agradeço a FATEC Zona Sul por oferecer esta oportunidade em construir este soft
 
 
 ### Adaptação, criação de novas funcionaldades e melhorias
-- Vagton Alves Ferreira
+- Vagton Alves Ferreira [vagton](https://github.com/vagton/mechanical-workshop.git)
 - Rodrigo Azevedo
 
 ## Licença
