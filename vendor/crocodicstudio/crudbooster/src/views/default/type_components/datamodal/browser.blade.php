@@ -48,6 +48,10 @@ if (count($coloms_alias) < 2) {
             $select_data_result = [];
             $select_data_result['datamodal_id'] = $row->id;
             $select_data_result['datamodal_label'] = $row->{$columns[1]} ?: $row->id;
+            // incluir a quantidade se estiver com a quantidade minima
+            if ($row->qty_stock <= $row->min_amount){
+                $select_data_result['amount'] = $row->qty_stock;
+            } 
             $select_data = Request::get('select_to');
             if ($select_data) {
                 $select_data = explode(',', $select_data);

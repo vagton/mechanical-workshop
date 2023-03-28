@@ -39,8 +39,8 @@ class AdminProductsController extends CBController
 		$this->col[] = ["label" => "Preços Fornecedor R$", "name" => "providers_price", "callback_php" => 'Callback::number($row->providers_price,2)'];
 		$this->col[] = ["label" => "Preços R$", "name" => "price", "callback_php" => 'Callback::number($row->price,2)'];
 		$this->col[] = ["label"=>"Código de barra","name"=>"barcode"];
-		$this->col[] = ["label" => "Quantidade Estoque", "name" => "qty_stock", "callback_php" => 'Callback::number($row->qty_stock,1)'];
-		$this->col[] = ["label" => "Mínimo Estoque", "name" => "min_amount", "callback_php" => 'Callback::number($row->min_amount,1)'];
+		$this->col[] = ["label" => "Quantidade Estoque", "name" => "qty_stock", "callback_php" => 'Callback::number($row->qty_stock,0)'];
+		$this->col[] = ["label" => "Mínimo Estoque", "name" => "min_amount", "callback_php" => 'Callback::number($row->min_amount,0)'];
 		$this->col[] = ["label"=>"Área","name"=>"area"];
 		$this->col[] = ["label"=>"Coluna","name"=>"col"];
 		$this->col[] = ["label"=>"Linha","name"=>"lin"];

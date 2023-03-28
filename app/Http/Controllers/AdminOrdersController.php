@@ -54,7 +54,7 @@ class AdminOrdersController extends CBController
 
 
 		$columns = [];
-		$columns[] = ['label' => 'Produtos', 'name' => 'products_id', 'type' => 'datamodal', 'datamodal_table' => 'products', 'datamodal_columns' => 'name,category,price,barcode,providers', 'datamodal_select_to' => 'price:price', 'datamodal_columns_alias' => 'Nome, Categoria, Preço R$, Cód. de Barra, Fornecedor', 'datamodal_where' => '', 'datamodal_size' => 'large', 'required' => true];
+		$columns[] = ['label' => 'Produtos', 'name' => 'products_id', 'type' => 'datamodal', 'datamodal_table' => 'products', 'datamodal_columns' => 'name,category,price,qty_stock,min_amount, barcode,providers', 'datamodal_select_to' => 'price:price', 'datamodal_columns_alias' => 'Nome, Categoria, Preço R$, Qtd Estoque, Qtd Minima, Cód. de Barra, Fornecedor', 'datamodal_where' => 'qty_stock>0', 'datamodal_size' => 'large', 'required' => true];
 		$columns[] = ['label' => 'Preço R$', 'name' => 'price', 'type' => 'text', 'readonly' => true, 'disabled' => true];
 		$columns[] = ['label' => 'Quantidade', 'name' => 'amount', 'type' => 'text', 'required' => true];
 		$columns[] = [
@@ -344,8 +344,35 @@ $("#produtosamount").mask("9999");
 	    */
 	public function hook_after_add($id)
 	{
-		//Your code here
-
+		//Atualiza o estoque quando adiciona um novo registro
+		$produtos = Request::get("produtos-products_id");
+		$amounts = Request::get("produtos-amount");
+		foreach($produtos as $key=>$produto){
+			foreach($amounts as $amount){
+				if($key1==$key2){
+					$produtos_amounts[$key][]=$produto;
+					$produtos_amounts[$key][]=$amount;
+					// dar baixa no estoque
+                
+					switch ($this->arr["situation"]) {
+						case "Concretizado":
+							if (($produto>0) && ($amount>0)){
+								$status = DB::table("products")
+									->where('id', $produto)
+									->decrement('qty_stock', $amount);
+							}
+							break;
+						case "Cancelado":
+							if (($produto>0) && ($amount>0)){
+								$status = DB::table("products")
+								->where('id', $produto)
+								->increment('qty_stock', $amount);
+							}
+							break;
+					}
+				}
+			}
+		}
 	}
 
 	/* 
@@ -371,7 +398,35 @@ $("#produtosamount").mask("9999");
 	    */
 	public function hook_after_edit($id)
 	{
-		//Your code here 
+		//Atualiza o estoque quando edita
+		$produtos = Request::get("produtos-products_id");
+		$amounts = Request::get("produtos-amount");
+		foreach($produtos as $key1=>$produto){
+			foreach($amounts as $key2=>$amount){
+				if($key1==$key2){
+					$produtos_amounts[$key][]=$produto;
+					$produtos_amounts[$key][]=$amount;
+					// dar baixa no estoque
+                
+					switch ($this->arr["situation"]) {
+						case "Concretizado":
+							if (($produto>0) && ($amount>0)){
+								$status = DB::table("products")
+									->where('id', $produto)
+									->decrement('qty_stock', $amount);
+							}
+							break;
+						case "Cancelado":
+							if (($produto>0) && ($amount>0)){
+								$status = DB::table("products")
+								->where('id', $produto)
+								->increment('qty_stock', $amount);
+							}
+							break;
+					}
+				}
+			}
+		}
 
 	}
 
